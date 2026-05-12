@@ -1,0 +1,147 @@
+BEGIN
+
+// Method Tanya
+METHOD Tanya
+    OUTPUT pertanyaan
+    INPUT jawaban
+    RETURN jawaban
+END METHOD
+
+
+// Method HitungCF
+METHOD HitungCF
+    cf = cfLama + cfBaru * (1 - cfLama)
+    RETURN cf
+END METHOD
+
+
+// Method TampilHasil
+METHOD TampilHasil
+
+    OUTPUT "=== HASIL ==="
+    OUTPUT performa
+    OUTPUT cf * 100
+
+    IF performa = "PRO"
+        OUTPUT "Player sangat cepat dan survivability tinggi"
+
+    IF performa = "Average"
+        OUTPUT "Kemampuan player cukup seimbang"
+
+    IF performa = "Noob"
+        OUTPUT "Player masih sering gagal atau mati"
+
+    ELSE IF performa = "SKILL ISSUE"
+        OUTPUT "Player punya skill issue"
+
+END METHOD
+
+
+// Program Utama
+OUTPUT "=== Sistem Pakar Penilaian Performa Player ==="
+
+q1 = Tanya("Player clear tanpa mati?")
+q2 = ""
+q3 = ""
+
+
+// Decision Tree
+IF q1 = "y"
+
+    q2 = Tanya("Dungeon selesai kurang dari 10 menit?")
+
+    IF q2 = "y"
+        q3 = Tanya("HP tersisa lebih dari 70%?")
+    ENDIF
+
+    IF q2 = "n"
+        q3 = Tanya("HP tersisa lebih dari 50%?")
+    ENDIF
+
+ENDIF
+
+
+IF q1 = "n"
+
+    q2 = Tanya("Player mati lebih dari 3 kali?")
+
+    IF q2 = "y"
+        q3 = Tanya("Level karakter di bawah level 5?")
+    ENDIF
+
+    IF q2 = "n"
+        q3 = Tanya("Player menggunakan lebih dari 3 potion?")
+    ENDIF
+
+ENDIF
+
+
+// Forward Chaining
+performa = ""
+
+IF q1 = "y"
+
+    IF q2 = "y"
+
+        IF q3 = "y"
+            performa = "PRO"
+        ELSE
+            performa = "Average"
+        ENDIF
+
+    ELSE
+
+        IF q3 = "y"
+            performa = "Average"
+        ELSE
+            performa = "Noob"
+        ENDIF
+
+    ENDIF
+
+ELSE
+
+    IF q2 = "y"
+
+        IF q3 = "y"
+            performa = "Average"
+        ELSE
+            performa = "Noob"
+        ENDIF
+
+    ENDIF
+
+
+    IF q1 = "n"
+
+        IF q3 = "y"
+            performa = "Noob"
+        ELSE
+            performa = "SKILL ISSUE"
+        ENDIF
+
+    ENDIF
+
+ENDIF
+
+
+// Certainty Factor
+cf = 0
+
+IF q1 = "y" OR q1 = "n"
+    cf = HitungCF(cf, 0.4)
+ENDIF
+
+IF q2 = "y" OR q2 = "n"
+    cf = HitungCF(cf, 0.6)
+ENDIF
+
+IF q3 = "y" OR q3 = "n"
+    cf = HitungCF(cf, 0.8)
+ENDIF
+
+
+// Menampilkan hasil
+TampilHasil(performa, cf)
+
+END
