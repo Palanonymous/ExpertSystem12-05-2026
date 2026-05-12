@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -31,18 +31,17 @@ class Program
         {
             Console.WriteLine("Alasan: Player sangat cepat dan survivability tinggi.");
         }
-        if (performa == "Average")
+        else if (performa == "Average")
         {
             Console.WriteLine("Alasan: Kemampuan player cukup seimbang.");
         }
-        if (performa == "Noob")
+        else if (performa == "Noob")
         {
             Console.WriteLine("Alasan: Player masih sering gagal atau mati.");
         }
         else if (performa == "SKILL ISSUE")
         {
             Console.WriteLine("Alasan: Player Punya Skill Issue (Buruk dalam semua hal)");
-
         }
     }
 
