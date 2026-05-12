@@ -25,10 +25,10 @@ METHOD TampilHasil
     IF performa = "PRO"
         OUTPUT "Player sangat cepat dan survivability tinggi"
 
-    IF performa = "Average"
+    ElSE IF performa = "Average"
         OUTPUT "Kemampuan player cukup seimbang"
 
-    IF performa = "Noob"
+    ELSE IF performa = "Noob"
         OUTPUT "Player masih sering gagal atau mati"
 
     ELSE IF performa = "SKILL ISSUE"
